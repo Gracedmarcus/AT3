@@ -5,18 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private Waypoint[] waypoints;
     public static GameManager Instance { get; private set; }
-    public Waypoint[] Waypoints { get { return waypoints; } }
-    public Transform currentPoint, targetPoint;
-    
+    public Waypoint[] Waypoints { get; }
     public Player Player { get { return Player; } }
+    public Waypoint SpawnPoint { get; set; }
+    private bool paused;
 
-    private void Awake()
+    void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
         }
+        foreach (Waypoint way in Waypoints)
+        {
+            if (way.name == "Spawn")
+            {
+                SpawnPoint = way;
+                break;
+            }
+        }
+    }
+    void OnUpdate()
+    {
+        if (!paused)
+        {
+            //open menu pause game
+        }
+        //close menu
     }
 } 

@@ -15,9 +15,9 @@ public class Waypoint : MonoBehaviour
         //Draws red lines between a parent and its children.
         if (neighbours.Length != 0)
         {
-            foreach (Waypoint neigh in Neighbours)
+            foreach (Waypoint neigh in neighbours)
             {
-                Debug.DrawLine(transform.position, neigh.transform.position, Color.green);
+                Debug.DrawLine(transform.position, neigh.transform.position + offset, Color.green);
             }
         }
         //Draws green lines between a child and its children.
@@ -25,7 +25,7 @@ public class Waypoint : MonoBehaviour
         {
             foreach (GameObject cld in child)
             {
-                Debug.DrawLine(transform.position, cld.transform.position, Color.red);
+               Debug.DrawLine(transform.position, cld.transform.position + offset, Color.red); 
             }
         }
     }

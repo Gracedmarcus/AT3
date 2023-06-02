@@ -2538,8 +2538,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31eef9ba8835324f801028844f9a378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1728239077}
-  enemyObj: {fileID: 1175154467}
+  pursueDistance: 5
+  currentPoint: {fileID: 0}
+  targetPoint: {fileID: 0}
+  lastpoint: {fileID: 0}
 --- !u!195 &1175154473
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2554,7 +2556,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -3389,6 +3391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2314e0b9e5335714bac6c0636eb1b137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 1426347475}
 --- !u!4 &1557929454
 Transform:
   m_ObjectHideFlags: 0

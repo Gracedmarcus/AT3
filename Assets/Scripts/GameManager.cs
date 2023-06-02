@@ -6,24 +6,23 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public Waypoint[] Waypoints { get; }
+    public Waypoint[] Waypoints { get; set; }
     public Player Player { get { return Player; } }
-    public Waypoint SpawnPoint { get; set; }
+    public Waypoint spawnPoint;
     private bool paused;
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
-        foreach (Waypoint way in Waypoints)
+    }
+    void Start()
+    {
+        if(spawnPoint == null)
         {
-            if (way.name == "Spawn")
-            {
-                SpawnPoint = way;
-                break;
-            }
+        Debug.Log("No spawn point");
         }
     }
     void OnUpdate()

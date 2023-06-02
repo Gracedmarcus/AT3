@@ -17,7 +17,7 @@ public class Waypoint : MonoBehaviour
         {
             foreach (Waypoint neigh in neighbours)
             {
-                Debug.DrawLine(transform.position, neigh.transform.position + offset, Color.green);
+                Debug.DrawLine(transform.position + offset, neigh.transform.position + offset, Color.green);
             }
         }
         //Draws green lines between a child and its children.
@@ -25,7 +25,7 @@ public class Waypoint : MonoBehaviour
         {
             foreach (GameObject cld in child)
             {
-               Debug.DrawLine(transform.position, cld.transform.position + offset, Color.red); 
+               Debug.DrawLine(transform.position + offset, cld.transform.position + offset, Color.red); 
             }
         }
     }

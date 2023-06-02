@@ -7,60 +7,77 @@ using FiniteStateMachine;
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField] private int pursueDistance = 5;
-    private float stoppingDistance;
+    [SerializeField] private float stoppingDistance;
     private GameObject player;
+    private bool stateSwap;
     private NavMeshAgent agentNav;
     public Waypoint currentPoint, targetPoint, lastpoint;
     private StateMachine StateMachine { get; set; }
 
+    [ExecuteInEditMode]
     private void OnDrawGizmos()
     {
         if (targetPoint != null)
         {
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(targetPoint.transform.position, stoppingDistance);
-            Gizmos.color = Color.red;
         }
         if (currentPoint != null)
         {
-            Gizmos.DrawWireSphere(currentPoint.transform.position, stoppingDistance);
             Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(currentPoint.transform.position, stoppingDistance);
         }
-        if (lastpoint != null)
+        if (stoppingDistance != 0)
         {
-            Gizmos.DrawWireSphere(lastpoint.transform.position, stoppingDistance);
             Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(gameObject.transform.position, stoppingDistance);
         }
-        Gizmos.DrawWireSphere(transform.position, pursueDistance);
-        Gizmos.color = Color.cyan;
-
-        Gizmos.DrawWireSphere(transform.position, stoppingDistance);
-        Gizmos.color = Color.red;
+        if (pursueDistance != 0)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(gameObject.transform.position, pursueDistance);
+        }
     }
-
     void Awake()
     {
         StateMachine = new StateMachine();
         agentNav = GetComponent<NavMeshAgent>();
-        stoppingDistance = agentNav.stoppingDistance;
+        agentNav.isStopped = true;
     }
 
     void Start()
     {
-        agentNav.isStopped = true;
         Debug.Log("Teleport");
+        stateSwap = true;
         currentPoint = GameManager.Instance.spawnPoint;
         transform.position = currentPoint.transform.position;
+        if(StateMachine.CurrentState == null)
+        {
+            StateMachine.SetState(new IdleState(this));
+        }
     }
 
     void Update()
     {
-        if (agentNav.remainingDistance <= stoppingDistance | targetPoint == null)
+        if (stateSwap == true)
         {
-            agentNav.isStopped = true;
-            foreach (Waypoint wayx in currentPoint.Neighbours)
+            Debug.Log(StateMachine.GetCurrentStateAsType<IState>());
+            stateSwap = false;
+        }
+        if (agentNav.isStopped == true)
+        {
+            Waypointer(currentPoint);
+        }
+    }
+
+    void Waypointer(Waypoint waypoint)
+    {        
+        if (agentNav.destination == null)
+        {
+            foreach (Waypoint wayx in waypoint.Neighbours)
             {
-                int length = currentPoint.Neighbours.Length;
-                if (lastpoint != null)
+                int length = waypoint.Neighbours.Length;
+                if (targetPoint != null)
                 {
                     if (length <= 1)
                     {
@@ -72,17 +89,14 @@ public class EnemyMove : MonoBehaviour
                     {
                         Debug.Log("More than one neighbour here");
                         int randoNum = Random.Range(0, length);
-                        targetPoint = currentPoint.Neighbours[randoNum];
+                        targetPoint = waypoint.Neighbours[randoNum];
                         break;
                     }
                 }
-                agentNav.SetDestination(targetPoint.transform.position);                    
-                Debug.Log("New destination");
-            }
-        }
-        if (currentPoint.Neighbours.Length == 0)
-        {
-            return;
+                targetPoint = wayx;
+            }                
+            agentNav.SetDestination(targetPoint.transform.position);                    
+            Debug.Log("New destination");
         }
     }
 
@@ -112,7 +126,8 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
-            Debug.Log("Movement state entered");
+            instance.stateSwap = true;
+            Debug.Log("Moving toward " + instance.targetPoint);
             instance.agentNav.isStopped = false;
         }
         public override void OnUpdate()
@@ -140,6 +155,7 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
+            instance.stateSwap = true;
             Debug.Log("Idle state at " + instance.currentPoint.name);
         }
         public override void OnUpdate()
@@ -155,10 +171,6 @@ public class EnemyMove : MonoBehaviour
         }
         public override void OnExit()
         {
-            if (instance.targetPoint != null)
-            { 
-                instance.agentNav.destination = instance.targetPoint.transform.position;
-            }
         }
     }
 
@@ -171,13 +183,13 @@ public class EnemyMove : MonoBehaviour
         public override void OnEnter()
         {
             Debug.Log("Pursing state entered");
+            instance.stateSwap = true;
             instance.agentNav.isStopped = false;
         }
         public override void OnExit()
         {
             Debug.Log("Pursing state exit");
             instance.agentNav.isStopped = true;
-            instance.targetPoint = instance.lastpoint;
         }
         public override void OnUpdate()
         {

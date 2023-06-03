@@ -6,7 +6,7 @@ public class Waypoint : MonoBehaviour
 {
     [SerializeField] private GameObject[] child;
     [SerializeField] private Waypoint[] neighbours;
-    private Vector3 offset = new Vector3(0,1,0);
+    private Vector3 offset = new Vector3(0,0.1f,0);
     public Waypoint[] Neighbours { get { return neighbours; } }
     public GameObject[] Child { get { return child; } }
 

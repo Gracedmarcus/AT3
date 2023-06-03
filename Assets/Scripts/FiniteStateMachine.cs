@@ -32,9 +32,7 @@ namespace FiniteStateMachine
             {
                 CurrentState.OnExit();
             }
-
             CurrentState = newState;
-
             CurrentState.OnEnter();
         }
 

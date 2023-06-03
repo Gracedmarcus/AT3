@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 1
+    agentRadius: 1
+    agentHeight: 2
     agentSlope: 30
-    agentClimb: 0.2
+    agentClimb: 0.5
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -1730,7 +1730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903274718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 581732355}
@@ -2457,7 +2457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175154467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1, y: 0, z: 67.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1464604291}
@@ -2538,11 +2538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31eef9ba8835324f801028844f9a378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pursueDistance: 5
-  stoppingDistance: 1.5
+  pursueDistance: 4
   currentPoint: {fileID: 0}
-  targetPoint: {fileID: 0}
-  lastpoint: {fileID: 0}
+  target: {fileID: 0}
 --- !u!195 &1175154473
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2552,7 +2550,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1175154467}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3
   m_Acceleration: 2
   avoidancePriority: 50
@@ -3617,7 +3615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649122741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2026867627}

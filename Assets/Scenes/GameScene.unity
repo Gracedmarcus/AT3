@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37294903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (6)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -237,7 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85827659}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (4)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 109249666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (11)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -447,7 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 139377365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint1_2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 154046980}
   - component: {fileID: 154046982}
   - component: {fileID: 154046981}
+  - component: {fileID: 154046983}
   m_Layer: 0
   m_Name: InterE (1)
   m_TagString: Untagged
@@ -549,6 +550,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154046979}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &154046983
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154046979}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &367403079
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,6 +649,7 @@ GameObject:
   - component: {fileID: 453520468}
   - component: {fileID: 453520470}
   - component: {fileID: 453520469}
+  - component: {fileID: 453520471}
   m_Layer: 0
   m_Name: InterE (3)
   m_TagString: Untagged
@@ -705,6 +720,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453520467}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &453520471
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453520467}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &467977273
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501973412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1649122742}
@@ -895,7 +923,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 572405650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (12)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -926,7 +954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 572864759}
   - component: {fileID: 572864760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint6
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -973,6 +1001,7 @@ GameObject:
   - component: {fileID: 579773668}
   - component: {fileID: 579773670}
   - component: {fileID: 579773669}
+  - component: {fileID: 579773671}
   m_Layer: 0
   m_Name: HallwayE (3)
   m_TagString: Untagged
@@ -1043,6 +1072,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579773667}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &579773671
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579773667}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &581732354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1096,7 @@ GameObject:
   - component: {fileID: 581732355}
   - component: {fileID: 581732357}
   - component: {fileID: 581732356}
+  - component: {fileID: 581732358}
   m_Layer: 0
   m_Name: InterE
   m_TagString: Untagged
@@ -1124,6 +1167,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581732354}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &581732358
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581732354}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &614402901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 614402902}
   - component: {fileID: 614402903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint8
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -1260,7 +1316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 634926295}
   - component: {fileID: 634926296}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint9
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -1314,7 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676527158}
   - component: {fileID: 676527159}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint4
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -1676,6 +1732,101 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846789815}
   m_CullTransparentMesh: 1
+--- !u!1 &852288273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 852288274}
+  - component: {fileID: 852288277}
+  - component: {fileID: 852288276}
+  - component: {fileID: 852288275}
+  m_Layer: 0
+  m_Name: HallwayE (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &852288274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852288273}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 5, y: -1, z: 32.5}
+  m_LocalScale: {x: 4, y: 0.25, z: 5}
+  m_Children: []
+  m_Father: {fileID: 903274719}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+--- !u!65 &852288275
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852288273}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &852288276
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852288273}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &852288277
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852288273}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &874000381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,7 +1836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 874000382}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (9)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -1740,6 +1891,7 @@ Transform:
   - {fileID: 154046980}
   - {fileID: 1793735216}
   - {fileID: 453520468}
+  - {fileID: 852288274}
   m_Father: {fileID: 2098170699}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1753,7 +1905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 922022667}
   - component: {fileID: 922022668}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint2
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -1961,7 +2113,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 988629510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (10)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -1991,7 +2143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018075663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (7)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2348,7 +2500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168000660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: 0, z: -25}
+  m_LocalPosition: {x: -11.9, y: -0.05, z: 5.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2098170699}
@@ -2407,7 +2559,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1172108239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (15)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -2538,9 +2690,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31eef9ba8835324f801028844f9a378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pursueDistance: 4
   currentPoint: {fileID: 0}
   target: {fileID: 0}
+  stunBlock: {fileID: 0}
+  toggle: 0
+  toggleMove: 0
 --- !u!195 &1175154473
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2574,6 +2728,7 @@ GameObject:
   - component: {fileID: 1177326983}
   - component: {fileID: 1177326985}
   - component: {fileID: 1177326984}
+  - component: {fileID: 1177326986}
   m_Layer: 0
   m_Name: HallwayE (1)
   m_TagString: Untagged
@@ -2644,6 +2799,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177326982}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1177326986
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177326982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1210929030
 GameObject:
   m_ObjectHideFlags: 0
@@ -3015,7 +3183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1426347474}
   - component: {fileID: 1426347475}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spawn
   m_TagString: NavTag
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
@@ -3269,7 +3437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521826743}
   - component: {fileID: 1521826744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint7
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -3324,7 +3492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546178482}
   - component: {fileID: 1546178483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint3
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -3495,7 +3663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1595441751}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint1_1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -3640,7 +3808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1652792812}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (5)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -3671,7 +3839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666282974}
   - component: {fileID: 1666282975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint5
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -3724,7 +3892,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677328193}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint1_3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -3759,7 +3927,7 @@ GameObject:
   - component: {fileID: 1728239078}
   - component: {fileID: 1728239082}
   - component: {fileID: 1728239083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3866,12 +4034,12 @@ Rigidbody:
   m_GameObject: {fileID: 1728239077}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1763310216
 GameObject:
@@ -3959,6 +4127,7 @@ GameObject:
   - component: {fileID: 1793735216}
   - component: {fileID: 1793735218}
   - component: {fileID: 1793735217}
+  - component: {fileID: 1793735219}
   m_Layer: 0
   m_Name: InterE (2)
   m_TagString: Untagged
@@ -4029,6 +4198,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793735215}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1793735219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793735215}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1853994440
 GameObject:
   m_ObjectHideFlags: 0
@@ -4113,7 +4295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865594737}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (8)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -4218,7 +4400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1901268187}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (13)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -4248,7 +4430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1934675866}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint (14)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -4345,7 +4527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026867627}
   - component: {fileID: 2026867628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint1
   m_TagString: NavTag
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -4400,7 +4582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2044365476}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavPoint1_4
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -4445,7 +4627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098170698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 903274719}
@@ -4464,6 +4646,7 @@ GameObject:
   - component: {fileID: 2118537395}
   - component: {fileID: 2118537397}
   - component: {fileID: 2118537396}
+  - component: {fileID: 2118537398}
   m_Layer: 0
   m_Name: HallwayE (2)
   m_TagString: Untagged
@@ -4534,6 +4717,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118537394}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &2118537398
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118537394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2135634722
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using FiniteStateMachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +10,7 @@ public class EnemyMove : MonoBehaviour
     private Transform player, lastPos;
     private NavMeshAgent agentNav;
     public Waypoint currentPoint, target;
-    private bool playerFound, isStunned;
+    [SerializeField]private bool playerFound, isStunned;
     private LayerMask playerMask;
     public Collider stunBlock;
     public bool toggle, toggleMove;
@@ -64,12 +65,29 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject == stunBlock)
+        {
+            isStunned = true;
+        }
+    }
+
+    private IEnumerator Timer(float Number)
+    {
+        yield return new WaitForSeconds(Number);
+        {
+            Debug.Log("Stun finished");
+            isStunned = false;
+        }
+    }
+
     void Waypointer(Waypoint current)
     {
         foreach (Waypoint wayx in current.Neighbours) //saves neighbouring points of current
         {
             int wayNum = current.Neighbours.Length;
-            if (current != GameManager.Instance.spawnPoint || wayNum < 1)
+            if (wayx != GameManager.Instance.spawnPoint || wayNum !< 2)
             {
                 if (wayNum > 1)
                 {
@@ -78,9 +96,9 @@ public class EnemyMove : MonoBehaviour
                     target = current.Neighbours[randoNum];
                     break;
                 }
+                target = wayx;
+                break;
             }
-            target = wayx;
-            break;
         }
         Debug.Log("New destination at " + target);
     }
@@ -197,6 +215,31 @@ public class EnemyMove : MonoBehaviour
         public override void OnExit()
         {
             
+        }
+    }
+    public class StunState : EnemyMoveState
+    {
+        public StunState(EnemyMove _instance) : base(_instance)
+        {
+        }
+
+        public override void OnEnter()
+        {
+            Debug.Log("Enemy Stunned");
+            instance.isStunned = true;
+            instance.lastPos = instance.target.transform;            
+            instance.StartCoroutine("Timer", 3f);
+        }
+        public override void OnUpdate()
+        {
+            if(instance.isStunned != true)
+            {
+                instance.StateMachine.SetState(new MoveState(instance));
+            }
+        }
+        public override void OnExit()
+        {
+
         }
     }
 }

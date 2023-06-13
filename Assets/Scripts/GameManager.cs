@@ -68,4 +68,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Stun was successful");
         toggle = false;
     }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 } 

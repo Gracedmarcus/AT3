@@ -7,20 +7,24 @@ public class MenuUI : MonoBehaviour
 {
     [SerializeField]private Button resume, options, menu;
     private Canvas canvas;
+    private GameManager manager;
     private Image panel;
-    private bool paused;
     // Start is called before the first frame update
 
     private void Start()
     {
+        manager = GameManager.Instance;
         canvas = FindObjectOfType<Canvas>();
         panel = canvas.GetComponentInChildren<Image>();
-        panel.enabled = false;
+        if(!manager.paused)
+        {
+            panel.enabled = false;
+        }    
     }
     public void Resume()
     {
-        paused = false;
-        panel.enabled = false;
+        manager.paused = false;
+        Paused(manager.paused);
     }
     public void Options()
     {
@@ -31,18 +35,15 @@ public class MenuUI : MonoBehaviour
         GameManager.Instance.MainMenu();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Paused(bool state)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!state)
         {
-            if (!paused)
-            {
-                panel.enabled = true;
-                paused = true;
-            }
+            panel.enabled = true;
+        }
+        if (state)
+        {
             panel.enabled = false;
-            paused = false;
         }
     }
 }

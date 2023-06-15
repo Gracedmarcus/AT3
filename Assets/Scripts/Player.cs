@@ -18,28 +18,27 @@ public class Player : MonoBehaviour
         pCam = GetComponentInChildren<Camera>();
         mouseSens = 100f;
         speed = 5;
-        batteries = 6;
         torchOn = false;
         torchObj.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.W))
+        if(Input.GetAxisRaw("Vertical") > 0)
         {
-            ForwardMove();
+            transform.position += transform.forward * speed * Time.deltaTime;
         }
-        else if(Input.GetKey(KeyCode.S))
+        else if(Input.GetAxisRaw("Vertical") < 0)
         {
-            BackMove();
+            transform.position -= transform.forward * speed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetAxisRaw("Horizontal") > 0)
         {
-            RightMove();
+            transform.position += transform.right * speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetAxisRaw("Horizontal") < 0)
         {
-            LeftMove();
+            transform.position -= transform.right * speed * Time.deltaTime;
         }
         else if (Input.GetKey(KeyCode.E))
         {
@@ -53,10 +52,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
+    float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
     float mouseY = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
 
-    //Cursor.lockState = CursorLockMode.Locked; //locks and hides mouse cursor to active game screen
+    Cursor.lockState = CursorLockMode.Locked; //locks and hides mouse cursor to active game screen
 
     xRotation -= mouseY;
     yRotation += mouseX;
@@ -68,22 +67,6 @@ public class Player : MonoBehaviour
     gameObject.transform.Rotate(0, yRotation, 0, Space.World);
     }
 
-    public void ForwardMove()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime; //denotes forward movement along the Z axis
-    }
-    public void BackMove()
-    {
-        transform.position -= transform.forward * speed * Time.deltaTime; //denotes backward movement along the Z axis
-    }
-    public void RightMove()
-    {
-        transform.position += transform.right * speed * Time.deltaTime; //denotes right movement along the X axis
-    }    
-    public void LeftMove()
-    {
-        transform.position -= transform.right * speed * Time.deltaTime; //denotes left movement along the X axis
-    }
     public void Interact()
     {
         RaycastHit hit;
@@ -105,7 +88,7 @@ public class Player : MonoBehaviour
             batteries -= 1;
             torchObj.SetActive(true);
             Debug.Log("Stun successful");
-            GameManager.Instance.PlayerUI(batteries);
+            //GameManager.Instance.PlayerUI(batteries);
             torchObj.SetActive(false);
             torchOn = false;
         }

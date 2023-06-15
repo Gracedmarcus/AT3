@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Waypoint[] Waypoints { get; set; }
-    private Canvas canvas;
     public Player player { get; private set; }
     public Image img { get; private set; }
     public Waypoint spawnPoint;
-    private bool paused, toggle;
-    [SerializeField] private Text goalCurr;
+    public MenuUI pauseMenu;
+    public bool paused;
+    [SerializeField]private Text goalCurr;
     public Image[] BatteriesList;
 
     void Awake()
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         player = FindObjectOfType<Player>();
-        BatteriesList = GameObject.Find("BatteriesUI").gameObject.GetComponentsInChildren<Image>();
+        GoalUpdate("Enter the Bunker");
     }
     void Start()
     {
@@ -31,18 +31,29 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("No spawn point");
         }
-        GoalUpdate("Enter the Bunker");
     }
     void Update()
     {
-        if (!paused)
+        if(paused && Time.timeScale != 0)
         {
-            //open menu pause game
-            paused = true;
+            Time.timeScale = 0;
+        }    
+        else if(!paused && Time.timeScale != 1)
+        {
+            Time.timeScale = 1;
         }
-        if (toggle)
+        if(Input.GetKey(KeyCode.Escape))
         {
-            OnUpdateFader();
+            if(paused == false)
+            {
+                paused = true;
+                pauseMenu.Paused(paused);
+            }
+            if (paused == true)
+            {
+                paused = false;
+                pauseMenu.Paused(paused);
+            }
         }
     }
 
@@ -51,7 +62,7 @@ public class GameManager : MonoBehaviour
         goalCurr.text = "> " + goal;
     }
 
-    public void PlayerUI(int num)
+    /*public void PlayerUI(int num)
     {
         img = BatteriesList[num];
         toggle = true;
@@ -67,7 +78,7 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("Stun was successful");
         toggle = false;
-    }
+    }*/
 
     public void MainMenu()
     {

@@ -2723,7 +2723,7 @@ GameObject:
   - component: {fileID: 952856972}
   - component: {fileID: 952856971}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2895,13 +2895,13 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 50
-    m_Alignment: 7
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name of Speaker
+  m_Text: Old Mate Duggie
 --- !u!222 &960101597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3430,6 +3430,7 @@ GameObject:
   - component: {fileID: 1102673478}
   - component: {fileID: 1102673480}
   - component: {fileID: 1102673479}
+  - component: {fileID: 1102673481}
   m_Layer: 5
   m_Name: DialogueWidget
   m_TagString: Untagged
@@ -3497,6 +3498,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102673477}
   m_CullTransparentMesh: 1
+--- !u!114 &1102673481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102673477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b086141036dff8408900525065a11ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatting: {fileID: 752526050}
+  person: {fileID: 960101596}
 --- !u!1 &1105216847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4486,7 +4501,6 @@ GameObject:
   - component: {fileID: 1395699801}
   - component: {fileID: 1395699803}
   - component: {fileID: 1395699802}
-  - component: {fileID: 1395699804}
   m_Layer: 5
   m_Name: Crosshair
   m_TagString: Untagged
@@ -4553,18 +4567,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395699800}
   m_CullTransparentMesh: 1
---- !u!114 &1395699804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395699800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8132e93b58f5036498f03ab5fa5ed0bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1401460186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5214,8 +5216,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1426347475}
-  goalCurr: {fileID: 0}
-  BatteriesList: []
+  pauseMenu: {fileID: 952856971}
+  paused: 0
+  goalCurr: {fileID: 1401460188}
+  BatteriesList:
+  - {fileID: 467977275}
+  - {fileID: 100236583}
+  - {fileID: 505467690}
+  - {fileID: 1068018494}
+  - {fileID: 1464289373}
+  - {fileID: 1853994442}
 --- !u!4 &1557929454
 Transform:
   m_ObjectHideFlags: 0
@@ -5767,7 +5777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalObj: {fileID: 0}
-  torchObj: {fileID: 0}
+  torchObj: {fileID: 40064244}
   torchOn: 0
 --- !u!54 &1728239083
 Rigidbody:

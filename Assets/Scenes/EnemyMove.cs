@@ -55,7 +55,7 @@ public class EnemyMove : MonoBehaviour
             StateMachine.SetState(new IdleState(this));
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         playerFound = Physics.CheckSphere(transform.position, pursueDistance, playerMask);
         StateMachine.CurrentState.OnUpdate();

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public Player player { get; private set; }
     public Image img { get; private set; }
     public Waypoint spawnPoint;
-    public MenuUI pauseMenu;
+    public GameObject pauseMenu;
     public bool paused;
     [SerializeField]private Text goalCurr;
     public Image[] BatteriesList;
@@ -23,65 +23,73 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         player = FindObjectOfType<Player>();
-        GoalUpdate("Enter the Bunker");
+        GoalUpdate(0);
+        paused = false;
     }
     void Start()
     {
-        if(spawnPoint == null)
-        {
-            Debug.Log("No spawn point");
-        }
+        pauseMenu.SetActive(false);
     }
     void Update()
     {
-        if(paused && Time.timeScale != 0)
+        if(Input.GetButtonUp("Pause"))
         {
-            Time.timeScale = 0;
-        }    
-        else if(!paused && Time.timeScale != 1)
-        {
-            Time.timeScale = 1;
-        }
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            if(paused == false)
-            {
-                paused = true;
-                pauseMenu.Paused(paused);
-            }
-            if (paused == true)
-            {
-                paused = false;
-                pauseMenu.Paused(paused);
-            }
+            Pause(true);
         }
     }
 
-    void GoalUpdate(string goal)
+    public void GoalUpdate(int goal)
     {
-        goalCurr.text = "> " + goal;
-    }
-
-    /*public void PlayerUI(int num)
-    {
-        img = BatteriesList[num];
-        toggle = true;
-    }
-
-    void OnUpdateFader()
-    {
-        while(img.fillAmount >= 0)
+        switch (goal)
         {
-            new WaitForSeconds(0.1f);
-            img.fillAmount -= 0.10f;
-            Debug.Log(img.fillAmount);
+            case 0:
+                goalCurr.text = "Open the gate";
+                break;
+            case 1:
+                goalCurr.text = "Find the cube";
+                break;
+            case 2:
+                goalCurr.text = "Find the sphere";
+                break;
+            case 3:
+                goalCurr.text = "Return to the van";
+                break;
         }
-        Debug.Log("Stun was successful");
-        toggle = false;
-    }*/
+    }
 
+    public void GameOver()
+    {
+    }
+
+    public void GameWin()
+    {
+    }
+    public void Resume()
+    {
+        Pause(false);
+    }
+    public void Options()
+    {
+    }
     public void MainMenu()
     {
         SceneManager.LoadScene("MenuScene");
+    }
+    public void Pause(bool state)
+    {
+        if (state)
+        {
+            paused = true;
+            pauseMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+        }
+        if (!state)
+        {
+            paused = false;
+            pauseMenu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+        }
     }
 } 

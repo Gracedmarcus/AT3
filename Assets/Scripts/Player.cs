@@ -7,10 +7,10 @@ public class Player : MonoBehaviour
 {
     private float mouseSens, yRotation, xRotation;
     private Rigidbody rBody;
-    [SerializeField]private GameObject goalObj, torchObj;
+    [SerializeField] private GameObject[] goalObj;
     private Camera pCam;
     public bool torchOn;
-    private int speed, batteries;
+    private int speed, batteries, goalNum;
 
     void Start()
     {
@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
         mouseSens = 100f;
         speed = 5;
         torchOn = false;
-        torchObj.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -55,11 +54,8 @@ public class Player : MonoBehaviour
     float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
     float mouseY = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
 
-    Cursor.lockState = CursorLockMode.Locked; //locks and hides mouse cursor to active game screen
-
     xRotation -= mouseY;
     yRotation += mouseX;
-
     xRotation = Mathf.Clamp(xRotation, -45f, 60f);
 
     pCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
@@ -69,14 +65,19 @@ public class Player : MonoBehaviour
 
     public void Interact()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(pCam.transform.position, transform.forward, out hit)) 
+        if (goalNum != 3)
         {
-           Debug.DrawRay(pCam.transform.position, transform.forward, Color.yellow);
-           if (hit.collider == goalObj)
-           {
-                //pickup event
-           }
+            RaycastHit hit;
+            if (Physics.Raycast(pCam.transform.position, transform.forward, out hit))
+            {
+
+                Debug.DrawRay(pCam.transform.position, transform.forward, Color.yellow);
+                if (goalObj[goalNum].gameObject == hit.collider)
+                {
+                    goalNum++;
+                    GameManager.Instance.GoalUpdate(goalNum);
+                }
+            }
         }
     }
     public void StunUV()
@@ -84,13 +85,9 @@ public class Player : MonoBehaviour
         Debug.Log("Stun called");
         if (batteries != 0)
         {
-            torchOn = true;
             batteries -= 1;
-            torchObj.SetActive(true);
             Debug.Log("Stun successful");
             //GameManager.Instance.PlayerUI(batteries);
-            torchObj.SetActive(false);
-            torchOn = false;
         }
     }
 }

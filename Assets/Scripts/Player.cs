@@ -70,7 +70,6 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(pCam.transform.position, transform.forward, out hit))
             {
-
                 Debug.DrawRay(pCam.transform.position, transform.forward, Color.yellow);
                 if (goalObj[goalNum].gameObject == hit.collider)
                 {

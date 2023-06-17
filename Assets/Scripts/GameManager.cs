@@ -43,16 +43,10 @@ public class GameManager : MonoBehaviour
         switch (goal)
         {
             case 0:
-                goalCurr.text = "Open the gate";
+                goalCurr.text = "Find the sphere";
                 break;
             case 1:
                 goalCurr.text = "Find the cube";
-                break;
-            case 2:
-                goalCurr.text = "Find the sphere";
-                break;
-            case 3:
-                goalCurr.text = "Return to the van";
                 break;
         }
     }

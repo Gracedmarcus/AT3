@@ -30,11 +30,21 @@ public class GameManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
     }
+
     void Update()
     {
         if(Input.GetButtonUp("Pause"))
         {
-            Pause(true);
+            if (paused == false)
+            {
+                Debug.Log("toggle" + paused);
+                Pause(true);
+            }
+            else
+            {
+                Debug.Log("toggle" + paused);
+                Pause(false);
+            }
         }
     }
 

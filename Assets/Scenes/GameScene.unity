@@ -4213,8 +4213,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1177326983}
   - component: {fileID: 1177326985}
-  - component: {fileID: 1177326984}
   - component: {fileID: 1177326986}
+  - component: {fileID: 1177326984}
   m_Layer: 0
   m_Name: HallwayE (1)
   m_TagString: Untagged

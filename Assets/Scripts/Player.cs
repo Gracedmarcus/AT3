@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.E))
         {
+            Debug.Log("Interact Attempt");
             Interact();
         }
         else if (Input.GetKey(KeyCode.Q))
@@ -63,14 +64,15 @@ public class Player : MonoBehaviour
     gameObject.transform.Rotate(0, yRotation, 0, Space.World);
     }
 
-    public void Interact()
+    public void Interact() //broken atm, doesnt follow camera past 90deg
     {
-        if (goalNum != 3)
+        if (goalNum <= goalObj.Length)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(pCam.transform.position, transform.forward, out hit))
+            Debug.Log("Grabbing");
+            if (Physics.Raycast(pCam.transform.position, transform.forward, out RaycastHit hit))
             {
-                Debug.DrawRay(pCam.transform.position, transform.forward, Color.yellow);
+                Debug.DrawRay(pCam.transform.position, hit.point, Color.yellow);
+                Debug.Log("Grabbed?");
                 if (goalObj[goalNum].gameObject == hit.collider)
                 {
                     goalNum++;

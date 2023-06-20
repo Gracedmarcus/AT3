@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
     public Player player { get; private set; }
     public Image img { get; private set; }
     public Waypoint spawnPoint;
-    public GameObject pauseMenu;
+    public GameObject pauseMenu, optionsMenu, finished;
     public bool paused;
-    [SerializeField]private Text goalCurr;
+    [SerializeField]private Text goalCurr, winCon;
     public Image[] BatteriesList;
 
     void Awake()
@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        finished.SetActive(false);
     }
 
     void Update()
@@ -63,10 +65,16 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        finished.SetActive(true);
+        winCon.text = "Oh no, you lost!";
+        Time.timeScale = 0;
     }
 
     public void GameWin()
     {
+        finished.gameObject.SetActive(true);
+        winCon.text = "You've won!";
+        Time.timeScale = 0;
     }
     public void Resume()
     {
@@ -74,6 +82,8 @@ public class GameManager : MonoBehaviour
     }
     public void Options()
     {
+        optionsMenu.SetActive(true);
+        pauseMenu.SetActive(false);
     }
     public void MainMenu()
     {

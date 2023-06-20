@@ -13,17 +13,17 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]private bool playerFound, isStunned;
     private LayerMask playerMask;
     public Collider stunBlock;
-    public bool toggle, toggleMove;
+    bool waited;
     private StateMachine StateMachine { get; set; }
     
     private void OnDrawGizmos()
     {
-        if (stoppingDistance != 0 && toggleMove)
+        if (stoppingDistance != 0)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(gameObject.transform.position, stoppingDistance);
         }
-        if (pursueDistance != 0 && toggle)
+        if (pursueDistance != 0)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(gameObject.transform.position, pursueDistance);
@@ -73,17 +73,15 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    private IEnumerator Timer(float Number)
+    IEnumerator Timer()
     {
-        yield return new WaitForSeconds(Number);
-        {
-            Debug.Log("Stun finished");
-            isStunned = false;
-        }
+        yield return new WaitForSeconds(3);
+        StateMachine.SetState(new MoveState(this));
     }
 
     void Waypointer(Waypoint current)
     {
+        StartCoroutine(Timer());
         foreach (Waypoint wayx in current.Neighbours) //saves neighbouring points of current
         {
             int wayNum = current.Neighbours.Length;
@@ -91,7 +89,6 @@ public class EnemyMove : MonoBehaviour
             {
                 if (wayNum > 1)
                 {
-                    Debug.Log("Randomizing");
                     int randoNum = Random.Range(0, wayNum);
                     target = current.Neighbours[randoNum];
                     break;
@@ -128,7 +125,6 @@ public class EnemyMove : MonoBehaviour
         }
         public override void OnEnter()
         {
-            Debug.Log("Idle start");
             instance.Waypointer(instance.currentPoint);
         }
         public override void OnUpdate()
@@ -137,7 +133,7 @@ public class EnemyMove : MonoBehaviour
             {
                 if (Vector3.Distance(instance.agentNav.transform.position, instance.target.transform.position) >= instance.stoppingDistance)
                 {
-                    instance.StateMachine.SetState(new MoveState(instance)); //swap to move state
+                    instance.StartCoroutine(instance.Timer());//swap to move state
                 }
             }
             else if (instance.playerFound && !instance.isStunned)

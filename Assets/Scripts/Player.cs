@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private Rigidbody rBody;
     private Camera pCam;
     public bool torchOn;
-    private GameObject torch;
+    [SerializeField]private GameObject torch;
     private int speed, batteries, goalNum;
     private GameManager game;
 
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
     public void StunUV()
     {
         Debug.Log("Stun called");
-        if (batteries != 0)
+        if (game.batteries != 0)
         {
             game.batteries -= 1;
             Debug.Log("Stun fired");

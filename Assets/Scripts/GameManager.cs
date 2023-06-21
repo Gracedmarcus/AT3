@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Waypoint[] Waypoints { get; set; }
-    public int batteries, goalInt;
+    public int batteries, goalInt, battTotal;
     public Waypoint spawnPoint;
+    public Player player;
     public GameObject pauseMenu, optionsMenu, finished, currentObj, nextObj;
     public bool paused;
     [SerializeField]private Text goalCurr, winCon;
@@ -36,10 +37,12 @@ public class GameManager : MonoBehaviour
             batteries++;
         }
         goalInt = 1;
+        battTotal = BatteriesList.Length;
         goalCurr.text = "Find the Golden Ball!";
+        Debug.Log(BatteriesList.Length);
     }
 
-    void Update()
+    private void Update()
     {
         if(Input.GetButtonUp("Pause"))
         {
@@ -54,10 +57,24 @@ public class GameManager : MonoBehaviour
                 Pause(false);
             }
         }
-        if(batteries != BatteriesList.Length)
+        if(batteries != battTotal)
         {
-            BatteriesList[batteries].gameObject.SetActive(false);
+            Image target = BatteriesList[batteries];
+            int fillNum = 100;
+            while(fillNum <= 0)
+            {
+                target.fillAmount = fillNum;
+                fillNum--;
+                StartCoroutine(TimeDown());
+            }
+            battTotal--;
+            player.torchOn = false;
         }
+    }
+
+    private IEnumerator TimeDown()
+    {
+        yield return new WaitForSeconds(0.1f);
     }
 
     public void GoalUpdate(GameObject goal)
@@ -77,14 +94,14 @@ public class GameManager : MonoBehaviour
     public void GameOver() //ends game
     {
         finished.SetActive(true);
-        winCon.text = "Oh no, you lost!";
+        winCon.text = "Oh no, you died-ed!";
         Time.timeScale = 0;
     }
 
     public void GameWin() //wins game
     {
         finished.gameObject.SetActive(true);
-        winCon.text = "You've won!";
+        winCon.text = "You've won-eded!";
         Time.timeScale = 0;
     }
     public void Resume() //unpauses

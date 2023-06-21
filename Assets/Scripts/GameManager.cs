@@ -5,17 +5,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour, IPointerClickHandler
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Waypoint[] Waypoints { get; set; }
-    public int batteries;
+    public int batteries, goalInt;
     public Waypoint spawnPoint;
-    public GameObject pauseMenu, optionsMenu, finished;
+    public GameObject pauseMenu, optionsMenu, finished, currentObj, nextObj;
     public bool paused;
     [SerializeField]private Text goalCurr, winCon;
     public Image[] BatteriesList;
-    public GameObject[] goalObj;
 
     void Awake()
     {
@@ -23,7 +22,6 @@ public class GameManager : MonoBehaviour, IPointerClickHandler
         {
             Instance = this;
         }
-        GoalUpdate(0);
         paused = false;
     }
     void Start()
@@ -37,6 +35,8 @@ public class GameManager : MonoBehaviour, IPointerClickHandler
             batt.gameObject.SetActive(true);
             batteries++;
         }
+        goalInt = 1;
+        goalCurr.text = "Find the Golden Ball!";
     }
 
     void Update()
@@ -60,19 +60,17 @@ public class GameManager : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void GoalUpdate(int goal)
+    public void GoalUpdate(GameObject goal)
     {
-        switch (goal)
+        if(goal != currentObj)
+        { 
+            //random text here
+        }
+        else if(goal == currentObj)
         {
-            case 0:
-                goalCurr.text = "Find the sphere";
-                break;
-            case 1:
-                goalCurr.text = "Find the cube";
-                break;
-            case 2:
-                goalCurr.text = "Escape!";
-                break;
+            goalInt = 2;
+            goalCurr.text = "Escape!";
+            currentObj = nextObj;
         }
     }
 
@@ -124,10 +122,5 @@ public class GameManager : MonoBehaviour, IPointerClickHandler
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
         }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        
     }
 } 

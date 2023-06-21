@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private Rigidbody rBody;
     private Camera pCam;
     public bool torchOn;
+    private GameObject torch;
     private int speed, batteries, goalNum;
     private GameManager game;
 
@@ -46,7 +47,6 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            Debug.Log("Interact Attempt");
             Interact();
         }
         else if (Input.GetKey(KeyCode.Q))
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
             if(!torchOn)
             { 
                 StunUV();
+                torchOn = true;
             }
         }
 
@@ -75,10 +76,9 @@ public class Player : MonoBehaviour
         {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward, Color.yellow, 25f);
             Debug.Log("Grabbed?");
-            if (hit.collider.gameObject.Equals(goalNum))
+            if (hit.collider.gameObject.tag=="ObjTag")
             {
-                goalNum++;
-                game.GoalUpdate(goalNum);
+                game.GoalUpdate(hit.collider.gameObject);
             }
         }
         Debug.Log("Nothing grabbed");
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         if (batteries != 0)
         {
             game.batteries -= 1;
-            Debug.Log("Stun successful");
+            Debug.Log("Stun fired");
         }
     }
 }

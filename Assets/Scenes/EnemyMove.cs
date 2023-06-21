@@ -47,6 +47,17 @@ public class EnemyMove : MonoBehaviour
         transform.position = currentPoint.transform.position;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject == player.gameObject)
+        {
+            if (StateMachine.GetCurrentStateAsType<StunState>() == StateMachine.CurrentState)
+            {
+                game.GameOver();
+            }
+        }
+    }
+
     void Start()
     { 
         Debug.Log("Teleported");
@@ -63,14 +74,6 @@ public class EnemyMove : MonoBehaviour
         if (playerFound)
         {
             Debug.Log("Player found");
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject == stunBlock)
-        {
-            isStunned = true;
         }
     }
 

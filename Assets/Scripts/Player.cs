@@ -7,10 +7,15 @@ public class Player : MonoBehaviour
 {
     private float mouseSens, yRotation, xRotation;
     private Rigidbody rBody;
-    [SerializeField] private GameObject[] goalObj;
     private Camera pCam;
     public bool torchOn;
     private int speed, batteries, goalNum;
+    private GameManager game;
+
+    void Awake()
+    {
+        game = GameManager.Instance;
+    }
 
     void Start()
     {
@@ -58,7 +63,6 @@ public class Player : MonoBehaviour
     xRotation -= mouseY;
     yRotation += mouseX;
     xRotation = Mathf.Clamp(xRotation, -45f, 60f);
-
     pCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
     gameObject.transform.Rotate(0, yRotation, 0, Space.World);
@@ -66,29 +70,26 @@ public class Player : MonoBehaviour
 
     public void Interact() //broken atm, doesnt follow camera past 90deg
     {
-        if (goalNum <= goalObj.Length)
+        Debug.Log("Grabbing");
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 25f))
         {
-            Debug.Log("Grabbing");
-            if (Physics.Raycast(pCam.transform.position, transform.forward, out RaycastHit hit))
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward, Color.yellow, 25f);
+            Debug.Log("Grabbed?");
+            if (hit.collider.gameObject.Equals(goalNum))
             {
-                Debug.DrawRay(pCam.transform.position, hit.point, Color.yellow);
-                Debug.Log("Grabbed?");
-                if (goalObj[goalNum].gameObject == hit.collider)
-                {
-                    goalNum++;
-                    GameManager.Instance.GoalUpdate(goalNum);
-                }
+                goalNum++;
+                game.GoalUpdate(goalNum);
             }
         }
+        Debug.Log("Nothing grabbed");
     }
     public void StunUV()
     {
         Debug.Log("Stun called");
         if (batteries != 0)
         {
-            batteries -= 1;
+            game.batteries -= 1;
             Debug.Log("Stun successful");
-            //GameManager.Instance.PlayerUI(batteries);
         }
     }
 }

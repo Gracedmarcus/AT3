@@ -13,7 +13,8 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]private bool playerFound, isStunned;
     private LayerMask playerMask;
     public Collider stunBlock;
-    bool waited;
+    public GameManager game = GameManager.Instance;
+    bool moving;
     private StateMachine StateMachine { get; set; }
     
     private void OnDrawGizmos()
@@ -36,18 +37,18 @@ public class EnemyMove : MonoBehaviour
     }
     void Awake()
     {
+        currentPoint = game.spawnPoint;
         StateMachine = new StateMachine();
         if (agentNav == null)
         { 
             agentNav = GetComponent<NavMeshAgent>();
             agentNav.enabled = false;
         }
+        transform.position = currentPoint.transform.position;
     }
 
     void Start()
     { 
-        currentPoint = GameManager.Instance.spawnPoint;
-        transform.position = currentPoint.transform.position;
         Debug.Log("Teleported");
         agentNav.enabled = true;
         if (StateMachine.CurrentState == null)
@@ -75,7 +76,9 @@ public class EnemyMove : MonoBehaviour
 
     IEnumerator Timer()
     {
-        yield return new WaitForSeconds(3);
+        int randomNum = Random.Range(3,7);
+        yield return new WaitForSeconds(randomNum);
+        Debug.Log("Waited for " + randomNum);
         StateMachine.SetState(new MoveState(this));
     }
 
@@ -85,7 +88,7 @@ public class EnemyMove : MonoBehaviour
         foreach (Waypoint wayx in current.Neighbours) //saves neighbouring points of current
         {
             int wayNum = current.Neighbours.Length;
-            if (wayx != GameManager.Instance.spawnPoint || wayNum !< 2)
+            if (wayx != game.spawnPoint || wayNum !< 2)
             {
                 if (wayNum > 1)
                 {
@@ -125,15 +128,16 @@ public class EnemyMove : MonoBehaviour
         }
         public override void OnEnter()
         {
+            instance.moving = false;
             instance.Waypointer(instance.currentPoint);
         }
         public override void OnUpdate()
         {
             if (instance.agentNav.destination != null)
             {
-                if (Vector3.Distance(instance.agentNav.transform.position, instance.target.transform.position) >= instance.stoppingDistance)
+                if ((Vector3.Distance(instance.agentNav.transform.position, instance.target.transform.position) >= instance.stoppingDistance) && (instance.moving == false))
                 {
-                    instance.StartCoroutine(instance.Timer());//swap to move state
+                    instance.moving = true;//swap to move state
                 }
             }
             else if (instance.playerFound && !instance.isStunned)
@@ -224,7 +228,7 @@ public class EnemyMove : MonoBehaviour
             Debug.Log("Enemy Stunned");
             instance.isStunned = true;
             instance.lastPos = instance.target.transform;            
-            instance.StartCoroutine("Timer", 3f);
+            instance.StartCoroutine(instance.Timer());
         }
         public override void OnUpdate()
         {

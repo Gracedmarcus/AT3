@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IPointerClickHandler
 {
     public static GameManager Instance { get; private set; }
     public Waypoint[] Waypoints { get; set; }
-    public Player player { get; private set; }
-    public Image img { get; private set; }
+    public int batteries;
     public Waypoint spawnPoint;
     public GameObject pauseMenu, optionsMenu, finished;
     public bool paused;
     [SerializeField]private Text goalCurr, winCon;
     public Image[] BatteriesList;
+    public GameObject[] goalObj;
 
     void Awake()
     {
@@ -22,15 +23,20 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        player = FindObjectOfType<Player>();
         GoalUpdate(0);
         paused = false;
     }
     void Start()
     {
+        batteries = 0;
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
         finished.SetActive(false);
+        foreach(Image batt in BatteriesList)
+        {
+            batt.gameObject.SetActive(true);
+            batteries++;
+        }
     }
 
     void Update()
@@ -48,6 +54,10 @@ public class GameManager : MonoBehaviour
                 Pause(false);
             }
         }
+        if(batteries != BatteriesList.Length)
+        {
+            BatteriesList[batteries].gameObject.SetActive(false);
+        }
     }
 
     public void GoalUpdate(int goal)
@@ -60,36 +70,44 @@ public class GameManager : MonoBehaviour
             case 1:
                 goalCurr.text = "Find the cube";
                 break;
+            case 2:
+                goalCurr.text = "Escape!";
+                break;
         }
     }
 
-    public void GameOver()
+    public void GameOver() //ends game
     {
         finished.SetActive(true);
         winCon.text = "Oh no, you lost!";
         Time.timeScale = 0;
     }
 
-    public void GameWin()
+    public void GameWin() //wins game
     {
         finished.gameObject.SetActive(true);
         winCon.text = "You've won!";
         Time.timeScale = 0;
     }
-    public void Resume()
+    public void Resume() //unpauses
     {
         Pause(false);
     }
-    public void Options()
+    public void Options() //opens options menu
     {
         optionsMenu.SetActive(true);
         pauseMenu.SetActive(false);
     }
-    public void MainMenu()
+    public void MainMenu() //returns to mainmenu
     {
-        SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene(0);
     }
-    public void Pause(bool state)
+    public void Return()
+    {
+        optionsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
+    }
+    public void Pause(bool state) //pause state and time freeze
     {
         if (state)
         {
@@ -102,8 +120,14 @@ public class GameManager : MonoBehaviour
         {
             paused = false;
             pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        
     }
 } 

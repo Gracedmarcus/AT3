@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HUD
   - NavTag
+  - ObjTag
   layers:
   - Default
   - TransparentFX

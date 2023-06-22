@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Waypoint[] Waypoints { get; set; }
-    public int batteries, goalInt, battTotal;
+    public int batteries, goalInt;
     public Waypoint spawnPoint;
     public Player player;
-    public GameObject pauseMenu, optionsMenu, finished, currentObj, nextObj;
-    public bool paused;
+    public GameObject pauseMenu, optionsMenu, finished, exit;
+    public bool paused, pauseBlock;
     [SerializeField]private Text goalCurr, winCon;
     public Image[] BatteriesList;
 
@@ -27,19 +27,20 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        exit.SetActive(false);
         batteries = 0;
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
         finished.SetActive(false);
         foreach(Image batt in BatteriesList)
         {
-            batt.gameObject.SetActive(true);
+            batt.fillAmount = 1f;
             batteries++;
         }
-        goalInt = 1;
-        battTotal = BatteriesList.Length;
-        goalCurr.text = "Find the Golden Ball!";
-        Debug.Log(BatteriesList.Length);
+        goalInt = 0;
+        goalCurr.text = "Open the door!";
+        Debug.Log(BatteriesList.Length + "Batts");
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -48,60 +49,47 @@ public class GameManager : MonoBehaviour
         {
             if (paused == false)
             {
-                Debug.Log("toggle" + paused);
                 Pause(true);
             }
             else
             {
-                Debug.Log("toggle" + paused);
                 Pause(false);
             }
         }
-        if(batteries != battTotal)
-        {
-            Image target = BatteriesList[batteries];
-            int fillNum = 100;
-            while(fillNum <= 0)
-            {
-                target.fillAmount = fillNum;
-                fillNum--;
-                StartCoroutine(TimeDown());
-            }
-            battTotal--;
-            player.torchOn = false;
-        }
-    }
-
-    private IEnumerator TimeDown()
-    {
-        yield return new WaitForSeconds(0.1f);
     }
 
     public void GoalUpdate(GameObject goal)
     {
-        if(goal != currentObj)
-        { 
-            //random text here
-        }
-        else if(goal == currentObj)
+        if(goalInt == 0 && goal.gameObject.name=="door")
         {
-            goalInt = 2;
-            goalCurr.text = "Escape!";
-            currentObj = nextObj;
+            goal.SetActive(false);
+            goalCurr.text = "Find the BALL!";
+            goalInt++;
+        }
+        if(goalInt == 1 && goal.gameObject.name == "sphere")
+        {
+            goal.SetActive(false);
+            exit.SetActive(true);
+            goalInt++;
+            goalCurr.text = "Escape from the BOI!";
         }
     }
 
     public void GameOver() //ends game
     {
         finished.SetActive(true);
-        winCon.text = "Oh no, you died-ed!";
+        winCon.text = "Wasted!";
+        pauseBlock = true;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
     }
 
     public void GameWin() //wins game
     {
-        finished.gameObject.SetActive(true);
-        winCon.text = "You've won-eded!";
+        finished.SetActive(true);
+        winCon.text = "You've won!";
+        pauseBlock = true;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
     }
     public void Resume() //unpauses
@@ -124,14 +112,14 @@ public class GameManager : MonoBehaviour
     }
     public void Pause(bool state) //pause state and time freeze
     {
-        if (state)
+        if (state && !pauseBlock)
         {
             paused = true;
             pauseMenu.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
-        if (!state)
+        if (!state && !pauseBlock)
         {
             paused = false;
             pauseMenu.SetActive(false);

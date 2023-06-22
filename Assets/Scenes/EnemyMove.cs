@@ -5,25 +5,21 @@ using UnityEngine.AI;
 
 public class EnemyMove : MonoBehaviour
 {
-    private float pursueDistance = 5;
-    private float stoppingDistance = 2;
+    private float pursueDistance = 7;
+    private float stoppingDistance = 1;
     private Transform player, lastPos;
     private NavMeshAgent agentNav;
     public Waypoint currentPoint, target;
     [SerializeField]private bool playerFound, isStunned;
-    private LayerMask playerMask;
-    public Collider stunBlock;
+    private Animator animator;
+    [SerializeField] private AnimationClip animStun, animChase, animDef;
+    public GameObject stunBlock;
     public GameManager game = GameManager.Instance;
     bool moving;
     private StateMachine StateMachine { get; set; }
     
     private void OnDrawGizmos()
     {
-        if (stoppingDistance != 0)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(gameObject.transform.position, stoppingDistance);
-        }
         if (pursueDistance != 0)
         {
             Gizmos.color = Color.red;
@@ -45,13 +41,24 @@ public class EnemyMove : MonoBehaviour
             agentNav.enabled = false;
         }
         transform.position = currentPoint.transform.position;
+        if (StateMachine.CurrentState == null)
+        {
+            StateMachine.SetState(new IdleState(this));
+        }
+        animator = gameObject.GetComponent<Animator>();
+        player = game.player.gameObject.transform;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if(collision.gameObject == player.gameObject)
+        if (collider.gameObject == stunBlock)
         {
-            if (StateMachine.GetCurrentStateAsType<StunState>() == StateMachine.CurrentState)
+            StateMachine.SetState(new StunState(this));
+            isStunned = true;
+        }
+        else if(collider.gameObject == player.gameObject)
+        {
+            if (StateMachine.GetCurrentStateAsType<PursueState>() == StateMachine.CurrentState)
             {
                 game.GameOver();
             }
@@ -60,34 +67,44 @@ public class EnemyMove : MonoBehaviour
 
     void Start()
     { 
-        Debug.Log("Teleported");
         agentNav.enabled = true;
-        if (StateMachine.CurrentState == null)
-        {
-            StateMachine.SetState(new IdleState(this));
-        }
+        animator.Play("animDef");
     }
     void FixedUpdate()
     {
-        playerFound = Physics.CheckSphere(transform.position, pursueDistance, playerMask);
-        StateMachine.CurrentState.OnUpdate();
-        if (playerFound)
-        {
-            Debug.Log("Player found");
+        if(!isStunned)
+        { 
+            StateMachine.CurrentState.OnUpdate();        
+            if ((Vector3.Distance(gameObject.transform.position, player.position) <= pursueDistance) || (game.goalInt == 2))
+            {
+                playerFound = true;
+            }
+            else
+            {
+                playerFound = false;
+            }
         }
     }
 
-    IEnumerator Timer()
+    IEnumerator Timer(int timer)
     {
-        int randomNum = Random.Range(3,7);
-        yield return new WaitForSeconds(randomNum);
-        Debug.Log("Waited for " + randomNum);
-        StateMachine.SetState(new MoveState(this));
+        if (!isStunned)
+        {
+            int randomNum = Random.Range(2, 8);
+            yield return new WaitForSeconds(randomNum);
+            Debug.Log("Waited for " + randomNum);
+            StateMachine.SetState(new MoveState(this));
+        }
+        else if(isStunned)
+        {
+            yield return new WaitForSeconds(timer);
+            isStunned = false;
+        }
     }
 
     void Waypointer(Waypoint current)
     {
-        StartCoroutine(Timer());
+        StartCoroutine(Timer(0));
         foreach (Waypoint wayx in current.Neighbours) //saves neighbouring points of current
         {
             int wayNum = current.Neighbours.Length;
@@ -143,6 +160,10 @@ public class EnemyMove : MonoBehaviour
                     instance.moving = true;//swap to move state
                 }
             }
+            else if (instance.isStunned)
+            {
+                instance.StateMachine.SetState(new StunState(instance)); // swap to pursue state
+            }
             else if (instance.playerFound && !instance.isStunned)
             {
                 instance.StateMachine.SetState(new PursueState(instance)); // swap to pursue state
@@ -161,7 +182,6 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
-            Debug.Log("Move start");
             if (instance.target != null || instance.target != instance.currentPoint)
             {
                 if (instance.lastPos != null)
@@ -182,6 +202,10 @@ public class EnemyMove : MonoBehaviour
             {
                 instance.StateMachine.SetState(new PursueState(instance)); //swap to pursue state
             }
+            else if (instance.isStunned)
+            {
+                instance.StateMachine.SetState(new StunState(instance)); // swap to pursue state
+            }
         }
         public override void OnExit()
         {
@@ -201,6 +225,7 @@ public class EnemyMove : MonoBehaviour
         public override void OnEnter()
         {
             Debug.Log("Pursue entered!");
+            instance.animator.Play(instance.animChase.name);
             instance.lastPos = instance.target.transform;
         }
 
@@ -212,12 +237,19 @@ public class EnemyMove : MonoBehaviour
             }
             else
             {
-                instance.StateMachine.SetState(new MoveState(instance)); //return to last target
+                if (!instance.isStunned)
+                { 
+                instance.StateMachine.SetState(new MoveState(instance));
+                }//return to last target
+                if (instance.isStunned)
+                {
+                    instance.StateMachine.SetState(new StunState(instance));
+                }//enemy stunned
             }
         }        
         public override void OnExit()
         {
-            
+            instance.animator.Play("animDef");
         }
     }
     public class StunState : EnemyMoveState
@@ -228,21 +260,24 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
-            Debug.Log("Enemy Stunned");
-            instance.isStunned = true;
+            instance.animator.Play(instance.animStun.name);
             instance.lastPos = instance.target.transform;            
-            instance.StartCoroutine(instance.Timer());
+            instance.StartCoroutine(instance.Timer(5));
         }
         public override void OnUpdate()
         {
-            if(instance.isStunned != true)
+            if (!instance.isStunned && instance.target != null)
             {
                 instance.StateMachine.SetState(new MoveState(instance));
+            }
+            else if (!instance.isStunned && !instance.target)
+            {
+                instance.StateMachine.SetState(new IdleState(instance));
             }
         }
         public override void OnExit()
         {
-
+            instance.animator.Play(instance.animDef.name);
         }
     }
 }

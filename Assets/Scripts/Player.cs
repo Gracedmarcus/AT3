@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     private Camera pCam;
     public bool torchOn;
     [SerializeField]private GameObject torch;
-    private int speed, batteries, goalNum;
+    private int speed;
     private GameManager game;
 
     void Awake()
@@ -24,37 +24,46 @@ public class Player : MonoBehaviour
         pCam = GetComponentInChildren<Camera>();
         mouseSens = 100f;
         speed = 5;
+        torch.gameObject.SetActive(false);
         torchOn = false;
     }
 
     private void FixedUpdate()
-    {
-        if(Input.GetAxisRaw("Vertical") > 0)
+    {        
+        if (!torchOn)
         {
-            transform.position += transform.forward * speed * Time.deltaTime;
-        }
-        else if(Input.GetAxisRaw("Vertical") < 0)
-        {
-            transform.position -= transform.forward * speed * Time.deltaTime;
-        }
-        if (Input.GetAxisRaw("Horizontal") > 0)
-        {
-            transform.position += transform.right * speed * Time.deltaTime;
-        }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            transform.position -= transform.right * speed * Time.deltaTime;
-        }
-        else if (Input.GetKey(KeyCode.E))
+            if(Input.GetButton("Torch"))
+            { 
+                StartCoroutine(StunUV());
+                torchOn = true;
+                torch.gameObject.SetActive(true);
+            }
+        }        
+        if (Input.GetButtonDown("Interact"))
         {
             Interact();
         }
-        else if (Input.GetKey(KeyCode.Q))
+        if(Input.GetAxisRaw("Vertical") != 0)
         {
-            if(!torchOn)
-            { 
-                StunUV();
-                torchOn = true;
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                transform.position += transform.forward * speed * Time.deltaTime;
+            } 
+            else if(Input.GetAxisRaw("Vertical") < 0)
+            {
+            transform.position -= transform.forward * speed * Time.deltaTime;
+            }
+        }
+       
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                transform.position += transform.right * speed * Time.deltaTime;
+            }        
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+            transform.position -= transform.right * speed * Time.deltaTime;
             }
         }
 
@@ -69,27 +78,39 @@ public class Player : MonoBehaviour
     gameObject.transform.Rotate(0, yRotation, 0, Space.World);
     }
 
-    public void Interact() //broken atm, doesnt follow camera past 90deg
+    public void Interact() 
     {
-        Debug.Log("Grabbing");
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 25f))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 10f))
         {
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward, Color.yellow, 25f);
-            Debug.Log("Grabbed?");
-            if (hit.collider.gameObject.tag=="ObjTag")
+            if (hit.collider.gameObject.CompareTag("ObjTag"))
             {
+                Debug.Log("Grabbed " + hit.collider.gameObject);
                 game.GoalUpdate(hit.collider.gameObject);
             }
+            else 
+            {  
+                Debug.Log("Nothing grabbed");
+            }
         }
-        Debug.Log("Nothing grabbed");
     }
-    public void StunUV()
+    public IEnumerator StunUV()
     {
-        Debug.Log("Stun called");
         if (game.batteries != 0)
         {
             game.batteries -= 1;
-            Debug.Log("Stun fired");
+            if (game.batteries != game.BatteriesList.Length)
+            {
+                Image target = game.BatteriesList[game.batteries];
+                while (target.fillAmount != 0)
+                {
+                    target.fillAmount -= 0.05f;
+                    yield return new WaitForSeconds(0.10f);
+                    Debug.Log("battery at " + target.fillAmount + "%");
+                }
+            }
+            torchOn = false;
+            torch.gameObject.SetActive(false);
+            Debug.Log(game.batteries + " Batts remaining");
         }
     }
 }

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public bool paused, pauseBlock;
     [SerializeField]private Text goalCurr, winCon;
     public Image[] BatteriesList;
+    private EventSystem eventSys;
 
     void Awake()
     {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        eventSys = EventSystem.current;
         exit.SetActive(false);
         batteries = 0;
         pauseMenu.SetActive(false);
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
         goalInt = 0;
         goalCurr.text = "Open the door!";
         Debug.Log(BatteriesList.Length + "Batts");
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -50,6 +53,10 @@ public class GameManager : MonoBehaviour
             if (paused == false)
             {
                 Pause(true);
+                if (eventSys.currentSelectedGameObject == null)
+                {
+                    eventSys.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
+                }
             }
             else
             {
@@ -78,6 +85,7 @@ public class GameManager : MonoBehaviour
     public void GameOver() //ends game
     {
         finished.SetActive(true);
+        eventSys.SetSelectedGameObject(finished.GetComponentInChildren<Button>().gameObject);
         winCon.text = "Wasted!";
         pauseBlock = true;
         Cursor.lockState = CursorLockMode.None;
@@ -87,6 +95,7 @@ public class GameManager : MonoBehaviour
     public void GameWin() //wins game
     {
         finished.SetActive(true);
+        eventSys.SetSelectedGameObject(finished.GetComponentInChildren<Button>().gameObject);
         winCon.text = "You've won!";
         pauseBlock = true;
         Cursor.lockState = CursorLockMode.None;
@@ -98,6 +107,7 @@ public class GameManager : MonoBehaviour
     }
     public void Options() //opens options menu
     {
+        eventSys.SetSelectedGameObject(optionsMenu.GetComponentInChildren<Button>().gameObject);
         optionsMenu.SetActive(true);
         pauseMenu.SetActive(false);
     }
@@ -109,6 +119,7 @@ public class GameManager : MonoBehaviour
     {
         optionsMenu.SetActive(false);
         pauseMenu.SetActive(true);
+        eventSys.SetSelectedGameObject(pauseMenu.GetComponentInChildren<Button>().gameObject);
     }
     public void Pause(bool state) //pause state and time freeze
     {
@@ -116,6 +127,8 @@ public class GameManager : MonoBehaviour
         {
             paused = true;
             pauseMenu.SetActive(true);
+            optionsMenu.SetActive(false);
+            
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }

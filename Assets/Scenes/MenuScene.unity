@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Play
+  m_Text: Video
 --- !u!222 &35803738
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
+  m_InputActionsPerSecond: 2
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
 --- !u!114 &164112418
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1540431879}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &164112419
@@ -462,6 +462,8 @@ MonoBehaviour:
   start: {fileID: 1697716586}
   options: {fileID: 1024863123}
   extras: {fileID: 260373979}
+  eventSys: {fileID: 164112418}
+  game: {fileID: 0}
 --- !u!4 &249326789
 Transform:
   m_ObjectHideFlags: 0
@@ -490,7 +492,7 @@ GameObject:
   - component: {fileID: 254402245}
   m_Layer: 5
   m_Name: Extras
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -537,9 +539,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -776,7 +778,7 @@ GameObject:
   - component: {fileID: 556274632}
   m_Layer: 5
   m_Name: Exit
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -823,9 +825,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -909,7 +911,7 @@ GameObject:
   - component: {fileID: 608019879}
   m_Layer: 5
   m_Name: Back
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -956,9 +958,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1276,7 +1278,7 @@ GameObject:
   - component: {fileID: 915554674}
   m_Layer: 5
   m_Name: Back
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1323,9 +1325,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1409,7 +1411,7 @@ GameObject:
   - component: {fileID: 952217762}
   m_Layer: 5
   m_Name: Video
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1456,9 +1458,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1477,19 +1479,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952217763}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 249326788}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: StartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &952217763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1673,10 +1663,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-    semper commodo magna eget fermentum. Donec vulputate lorem quis molestie accumsan.
-    Donec velit sem, dapibus ut auctor vel, hendrerit vitae massa. Vivamus nec justo
-    odio. '
+  m_Text: This is a game. There are many other games like this, but this game is
+    my game. My game may not be good like the others, but that is what sets it apart.
+    It knows it is the ugly duckling, but soon it will be a swan.
 --- !u!222 &1235153842
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1699,7 +1688,7 @@ GameObject:
   - component: {fileID: 1288593723}
   m_Layer: 5
   m_Name: Audio
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1746,9 +1735,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1767,19 +1756,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1288593724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 249326788}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Extras
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1288593724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1888,7 +1865,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Extras
+  m_Text: Options
 --- !u!222 &1397034663
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1967,7 +1944,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Extras
+  m_Text: Information
 --- !u!222 &1503390966
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1990,7 +1967,7 @@ GameObject:
   - component: {fileID: 1540431881}
   m_Layer: 5
   m_Name: Play
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2037,9 +2014,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2512,7 +2489,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Play
+  m_Text: ' Play'
 --- !u!222 &1786835142
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2687,7 +2664,7 @@ GameObject:
   - component: {fileID: 2005892618}
   m_Layer: 5
   m_Name: Options
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2734,9 +2711,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
+    m_PressedColor: {r: 0.47912958, g: 0.7342018, b: 0.9150943, a: 1}
+    m_SelectedColor: {r: 0.8867924, g: 0.75022525, b: 0.09620863, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2955,7 +2932,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Extras
+  m_Text: Audio
 --- !u!222 &2121014663
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         game = GameManager.Instance;
+        
     }
-
     void Start()
     {
         TryGetComponent<Rigidbody>(out rBody);
@@ -67,8 +67,8 @@ public class Player : MonoBehaviour
             }
         }
 
-    float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
-    float mouseY = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
+    float mouseX = Input.GetAxis("MouseX") * mouseSens * Time.deltaTime;
+    float mouseY = Input.GetAxis("MouseY") * mouseSens * Time.deltaTime;
 
     xRotation -= mouseY;
     yRotation += mouseX;

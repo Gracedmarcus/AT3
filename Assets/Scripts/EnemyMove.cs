@@ -14,23 +14,12 @@ public class EnemyMove : MonoBehaviour
     private Animator animator;
     [SerializeField] private AnimationClip animStun, animChase, animDef;
     public GameObject stunBlock;
+    public AudioClip stunned, found;
+    public AudioSource audioSource;
     public GameManager game = GameManager.Instance;
     bool moving;
     private StateMachine StateMachine { get; set; }
-    
-    private void OnDrawGizmos()
-    {
-        if (pursueDistance != 0)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(gameObject.transform.position, pursueDistance);
-        }
-        if(agentNav != null && target != null)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(gameObject.transform.position, agentNav.destination);
-        }
-    }
+
     void Awake()
     {
         currentPoint = game.spawnPoint;
@@ -56,12 +45,9 @@ public class EnemyMove : MonoBehaviour
             StateMachine.SetState(new StunState(this));
             isStunned = true;
         }
-        else if(collider.gameObject == player.gameObject)
+        else if(collider.gameObject == player.gameObject && !isStunned)
         {
-            if (StateMachine.GetCurrentStateAsType<PursueState>() == StateMachine.CurrentState)
-            {
-                game.GameOver();
-            }
+            game.GameOver();
         }
     }
 
@@ -162,7 +148,7 @@ public class EnemyMove : MonoBehaviour
             }
             else if (instance.isStunned)
             {
-                instance.StateMachine.SetState(new StunState(instance)); // swap to pursue state
+                instance.StateMachine.SetState(new StunState(instance));// swap to pursue state
             }
             else if (instance.playerFound && !instance.isStunned)
             {
@@ -182,6 +168,7 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
+            instance.moving = true;
             if (instance.target != null || instance.target != instance.currentPoint)
             {
                 if (instance.lastPos != null)
@@ -195,10 +182,10 @@ public class EnemyMove : MonoBehaviour
         {
             if (Vector3.Distance(instance.agentNav.transform.position, instance.target.transform.position) <= instance.stoppingDistance)
             {
-                instance.StateMachine.SetState(new IdleState(instance));
                 instance.lastPos = null;
+                instance.StateMachine.SetState(new IdleState(instance));
             }
-            else if (instance.playerFound)
+            else if (instance.playerFound && !instance.isStunned)
             {
                 instance.StateMachine.SetState(new PursueState(instance)); //swap to pursue state
             }
@@ -224,7 +211,8 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
-            Debug.Log("Pursue entered!");
+            instance.audioSource.PlayOneShot(instance.found);
+            instance.moving = true;
             instance.animator.Play(instance.animChase.name);
             instance.lastPos = instance.target.transform;
         }
@@ -236,15 +224,16 @@ public class EnemyMove : MonoBehaviour
                 instance.agentNav.SetDestination(instance.player.transform.position);
             }
             else
-            {
-                if (!instance.isStunned)
-                { 
-                instance.StateMachine.SetState(new MoveState(instance));
-                }//return to last target
+            {                
                 if (instance.isStunned)
                 {
                     instance.StateMachine.SetState(new StunState(instance));
                 }//enemy stunned
+                if (!instance.isStunned)
+                { 
+                    instance.StateMachine.SetState(new MoveState(instance));
+                }//return to last target
+
             }
         }        
         public override void OnExit()
@@ -260,20 +249,23 @@ public class EnemyMove : MonoBehaviour
 
         public override void OnEnter()
         {
+            instance.audioSource.PlayOneShot(instance.stunned);
+            instance.moving = false;
             instance.animator.Play(instance.animStun.name);
             instance.lastPos = instance.target.transform;            
             instance.StartCoroutine(instance.Timer(5));
         }
         public override void OnUpdate()
-        {
-            if (!instance.isStunned && instance.target != null)
+        {            
+            if (instance.playerFound)
+            {
+                instance.StateMachine.SetState(new PursueState(instance));
+            }
+            else if (!instance.isStunned )
             {
                 instance.StateMachine.SetState(new MoveState(instance));
             }
-            else if (!instance.isStunned && !instance.target)
-            {
-                instance.StateMachine.SetState(new IdleState(instance));
-            }
+
         }
         public override void OnExit()
         {

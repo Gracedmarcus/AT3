@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class ExitBox : MonoBehaviour
 {
-    public GameManager game;
-    public Player player;
+    public GameManager game = GameManager.Instance;
+    public GameObject player;
 
     private void Start()
     {
-        game = GameManager.Instance;
-        player = game.player;
+        player = game.player.gameObject;
     }
 
     void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject == player)
+        if(collision.gameObject == player && game.goalInt == 2)
         {
             game.GameWin();
         }

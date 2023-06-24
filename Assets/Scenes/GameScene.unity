@@ -5391,7 +5391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea017ce26ec1c34dad9ab581e2032a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 0}
+  game: {fileID: 1557929453}
   player: {fileID: 0}
 --- !u!65 &1291830393
 BoxCollider:
@@ -6677,9 +6677,6 @@ MonoBehaviour:
   pauseMenu: {fileID: 952856967}
   optionsMenu: {fileID: 1665225816}
   finished: {fileID: 1987823443}
-  exit: {fileID: 1291830390}
-  paused: 0
-  pauseBlock: 0
   goalCurr: {fileID: 1401460188}
   winCon: {fileID: 458039843}
   BatteriesList:
@@ -7431,7 +7428,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728239077}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 51
   m_Drag: 1
   m_AngularDrag: 0.25
   m_UseGravity: 1

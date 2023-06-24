@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-        TryGetComponent<Rigidbody>(out rBody);
+        TryGetComponent(out rBody);
         pCam = GetComponentInChildren<Camera>();
         mouseSens = 100f;
         speed = 5;
@@ -103,9 +103,8 @@ public class Player : MonoBehaviour
                 Image target = game.BatteriesList[game.batteries];
                 while (target.fillAmount != 0)
                 {
-                    target.fillAmount -= 0.05f;
-                    yield return new WaitForSeconds(0.10f);
-                    Debug.Log("battery at " + target.fillAmount + "%");
+                    target.fillAmount -= 0.1f;
+                    yield return new WaitForSeconds(0.20f);
                 }
             }
             torchOn = false;

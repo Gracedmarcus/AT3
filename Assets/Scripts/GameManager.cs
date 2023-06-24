@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     public int batteries, goalInt;
     public Waypoint spawnPoint;
     public Player player;
-    public GameObject pauseMenu, optionsMenu, finished, exit;
-    public bool paused, pauseBlock;
+    public GameObject pauseMenu, optionsMenu, finished;
+    private bool paused, pauseBlock;
     [SerializeField]private Text goalCurr, winCon;
     public Image[] BatteriesList;
     private EventSystem eventSys;
@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         eventSys = EventSystem.current;
-        exit.SetActive(false);
         batteries = 0;
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
@@ -41,8 +40,8 @@ public class GameManager : MonoBehaviour
         }
         goalInt = 0;
         goalCurr.text = "Open the door!";
-        Debug.Log(BatteriesList.Length + "Batts");
         Time.timeScale = 1;
+        pauseBlock = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -76,7 +75,6 @@ public class GameManager : MonoBehaviour
         if(goalInt == 1 && goal.gameObject.name == "sphere")
         {
             goal.SetActive(false);
-            exit.SetActive(true);
             goalInt++;
             goalCurr.text = "Escape from the BOI!";
         }
